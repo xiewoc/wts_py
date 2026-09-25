@@ -1,5 +1,9 @@
 # Where To Study 无头核心（Python 版）`where-to-study-core`
 
+By DeepSeek
+
+Original Auther: *Nemoyuzx*
+
 `where-to-study-core` 的异步 Python 实现：北邮空教室、个人课表（含考试）、成绩与考试、
 教学云课程作业、班车与重要事件查询，以及节假日与设备本地收藏。所有 HTTP 请求使用
 [`httpx.AsyncClient`](https://www.python-httpx.org/async/)，与 Rust/Tauri、CLI、TUI
