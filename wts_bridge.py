@@ -1,5 +1,3 @@
-import asyncio
-
 from wts_core import (
     holidays, public_queries, classrooms, academic, schedule,
     assignments, scoped_cache,
