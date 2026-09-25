@@ -1,0 +1,95 @@
+# 隐私声明 / Privacy Policy
+
+生效日期 / Effective date: 2026-09-19
+
+Where To Study 是用于查看北京邮电大学个人课表、空教室及相关学习信息的独立非官方客户端，不由北京邮电大学运营，也不代表学校官方立场。
+
+Where To Study is an independent, unofficial client for viewing BUPT schedules, empty classrooms, and related study information. It is not operated by or affiliated with Beijing University of Posts and Telecommunications.
+
+## 账户与教务请求 / Account and academic requests
+
+你输入的学号和密码保存在操作系统的受保护凭据存储中。应用会在你主动获取课表、空教室或课程作业时，按下述用途通过 HTTPS 使用这些凭据。课表和空教室请求会发送到 `jwglweixin.bupt.edu.cn`；保存有效凭据且开启“自动检测当前学期”后，应用还会在启动时自动刷新一次个人课表，用于校验学期号和第一周周一。当天空教室还可能在启动、回到前台，或平台允许的每日约 07:00 后台任务中自动刷新。项目维护者无法读取这些凭据，设置接口也不会返回已保存的密码。
+
+The account and password you enter are stored in the operating system's protected credential storage. The app uses them over HTTPS when you request schedules, empty classrooms, or assignments as described below. After valid credentials are saved and automatic term detection is enabled, the app also refreshes the personal schedule once at launch to verify the term identifier and first Monday. Schedule and classroom requests are sent to `jwglweixin.bupt.edu.cn`. The current day's classroom availability may additionally refresh at launch, on returning to the foreground, or around 07:00 where the platform permits background work. The maintainer cannot read these credentials, and settings APIs never return a saved password.
+
+## 成绩与考试安排 / Grades and exam arrangements
+
+查询页还提供独立的考试安排与课程作业 DDL 页面；你可以主动获取或刷新，切换栏目本身不触发重复登录。作业使用设置中的教学云密码，留空则沿用教务密码。登录令牌仅在当前应用进程的内存中按账户及密码隔离复用，不写入磁盘或传给本应用服务端。优先遵守服务提供的令牌有效期；没有有效期信息时使用有界短期缓存。明确认证失效时最多重新登录重试一次；更改账户／密码、清除数据或切换示例模式会使对应会话失效。关闭进程后需重新登录。
+
+Query also provides separate exam and assignment-deadline pages with explicit fetch/refresh controls. Switching sections does not itself repeat login. Assignments use the separate Teaching Cloud password, or the academic password when it is blank. Login sessions are reused only in process memory, scoped to the account and password, never written to disk or sent to this app's server. Advertised token expiry is respected; tokens without expiry metadata use a bounded short lifetime. Explicit authentication expiry permits at most one login retry. Account/password changes, data clearing, or switching to demo mode invalidate the relevant session. Restarting the process requires a new login.
+
+主动打开“查询 → 成绩”后，应用使用已保存的教务账号和教务密码直接通过 HTTPS 从 `jwglweixin.bupt.edu.cn` 获取学校学期列表、本人课程成绩及学校返回的绩点。教学云平台的独立密码不用于此查询；不会查询其他学生。成绩不写入磁盘、不上传至本项目服务端或参考项目的代理服务；图形端只在当前会话的有界内存中短期复用，并在账号或相关凭据变化、清除数据后失效。终端的显式打印／JSON 输出会显示用户主动请求的成绩，请勿分享包含个人成绩的终端记录。
+
+Opening Query → Grades uses the saved academic account and academic password over HTTPS directly with `jwglweixin.bupt.edu.cn` to retrieve university semesters, your course results, and university-provided GPA. It does not use the separate teaching cloud password or query other students. Grades are not saved to disk or sent to this project's server or a reference project's proxy. Graphical clients reuse them only briefly in bounded session memory, invalidated on account or relevant credential changes and clearing data. Explicit terminal/JSON output contains the grades you request; do not share terminal records containing private results.
+
+个人课表刷新会在同次教务登录中同步读取考试安排，包括课程名称、日期／时间、地点和接口提供的座位等信息，并按账号、学期随原始课表缓存于本机。考试与课程重叠时，仅在本地有效日程中隐藏冲突的单次课程；不会修改学校记录。失败时可保留同账号同学期的旧考试并明确提示过期，成功返回空列表会清除旧安排；未知时间不会被虚构为某一节课。清除本地数据会同时删除考试缓存。
+
+Timetable refresh retrieves exam arrangements in the same university login, including course name, date/time, location, and a seat if supplied, and caches them locally with the original timetable by account and semester. Exams hide only conflicting course occurrences in the local effective schedule, without modifying university records. A failed request may retain clearly marked older exams only for the same account and semester; a successful empty result clears them. Unknown times are not replaced with invented class periods. Clearing local data also removes exam caches.
+
+## 本地数据 / Local data
+
+个人课表、空教室结果、校区、学期和功能开关会缓存在设备上，以减少重复请求。收藏活动时，应用还会在设备上保存该日程的完整快照，使其在来源关闭、失败或删除条目后仍能显示；收藏不会上传或跨设备同步。受支持系统上的课程小组件只读取本地课表快照。你可以取消单条收藏，或在设置中使用“清除本地数据”删除应用保存的凭据、课表、空教室和节假日缓存、收藏、偏好设置及应用管理的提醒任务。
+
+Schedules, classroom results, campus, term, and feature preferences are cached on your device to reduce repeated requests. Favoriting an event also stores its complete snapshot on that device so it remains visible if its source is disabled, unavailable, or removes the item; favorites are neither uploaded nor synchronized between devices. Course widgets on supported systems read only a local schedule snapshot. You can remove individual favorites or use “Clear local data” in Settings to remove saved credentials, schedule, classroom and holiday caches, favorites, preferences, and app-managed reminder tasks.
+
+课程删除仅是本地课表编辑：可删除某日的一次课程，或本学期整门课程的排课。应用保留原始课表并另存按账号和学期隔离的删除记录，刷新时重新应用，用户可在设置中恢复。这些记录会影响本机课程显示、空闲节次、受支持的小组件与课程提醒，不修改学校选课、学校作业或先前独立导出的系统日历事件；清除本地数据会一并删除记录。图形客户端使用现有应用私有存储，终端客户端沿用其受文件权限保护的本地存储。
+
+Course deletion is a local timetable edit: remove one dated occurrence or all meetings of a course in the current semester. The original timetable is retained, with separate account- and semester-scoped deletion records re-applied after refresh and restorable in Settings. Edits affect local course displays, free periods, supported widgets and reminders; they do not alter university enrollment, assignments, or previously exported system-calendar events. Clearing local data removes these records. Graphical clients use app-private storage; terminal clients retain their permission-protected local-file storage.
+
+## 节假日数据 / Holiday data
+
+应用可能通过 unpkg 获取固定版本 `holiday-calendar@1.3.3` 中的中国法定节假日与调休数据；Android 在已获得日历权限时也可能读取系统提供的“中国节假日”日历。远程请求仅包含 `CN` 地区和年份，不包含凭据、课表或空教室数据。iOS 不会仅因日期名称像节日就将其标记为休息日，只有权威休息日数据才显示“休”。
+
+The app may retrieve Chinese statutory holiday and transfer-workday data from the pinned `holiday-calendar@1.3.3` dataset through unpkg. Android may also read the OS-provided “Chinese holidays” calendar when calendar permission has already been granted. Remote requests contain only the `CN` region and year, never credentials, schedules, or classroom data. On iOS, a festival-like date name alone does not mark a day as a rest day; only authoritative rest-day data does.
+
+## 天气、黄历与公开活动 / Weather, almanac, and public events
+
+天气功能通过 UAPI 按所选校区对应的海淀或昌平行政区获取今日、明日天气，不读取 GPS 或精确位置。黄历功能通过 UAPI 获取基础农历信息，并可能通过 Timeless API 补充“宜/忌”。Contest DDL 的 GitHub Pages 主源提供学科竞赛、学术会议、期刊专题、夏令营、预推免和黑客松数据，主源不可用时可能访问 `where-to-study.cn` 上的固定 HTTPS 备用接口。校内竞赛通知由服务器脚本从学校内部网站的公开通知页提取整理，再由同域名下的固定 HTTPS API 提供。教学日历中的学科竞赛、学术会议、校内通知、夏令营和黑客松分别由对应开关控制；独立的“重要事件”查询页始终允许用户主动搜索这些公开数据，不包含课程作业或自定义日程。
+
+Weather uses UAPI to request today and tomorrow for the Haidian or Changping administrative district associated with the selected campus; it does not read GPS or precise location. Almanac data comes from UAPI, with optional `宜`/`忌` advice from the Timeless API. Contest DDL's GitHub Pages source provides competitions, academic conferences, journal special issues, summer camps, pre-admission events, and hackathons, with a fixed HTTPS backup on `where-to-study.cn` when the primary source is unavailable. School competition notices are extracted and organized by a server-side script from public notice pages on the university's internal website, then exposed through a fixed HTTPS API on the same domain. Calendar display switches separately control competitions, conferences, school notices, summer camps, and hackathons. The user-opened Important Events query remains searchable independently and contains neither assignments nor custom-feed items.
+
+班车查询通过固定接口 `https://where-to-study.cn/api/shuttle-bus` 获取北京邮电大学后勤部公开通知及官方时刻表的结构化结果。客户端只发送无凭据 HTTPS `GET`，不上传学号、密码、课表、校区选择、GPS 或其他个人数据；服务端可能按其政策处理 IP 地址、请求时间等普通网络元数据。自动识别结果仅供参考，节假日、停运和临时调整以后勤部原文为准。
+
+Shuttle queries retrieve structured public Logistics Department notices and official timetables from the fixed `https://where-to-study.cn/api/shuttle-bus` endpoint. The client sends only a credential-free HTTPS `GET`; no student ID, password, schedule, campus selection, GPS, or other personal data is uploaded. The server may process ordinary network metadata such as IP address and request time under its own policy. Automatically structured results are for reference only; rely on the original Logistics Department notice for holidays, suspensions, and temporary changes.
+
+你可以选择填写公开的 HTTPS JSON 地址作为自定义日程来源。应用不会向该地址附带教务凭据、Cookie、token、课表、教室或作业数据；地址不得含用户信息、片段、回环地址或私网 IP 字面量，客户端拒绝重定向并限制响应大小与请求频率。该服务器仍可能按照自己的政策处理 IP 地址、请求时间等普通网络元数据。接口格式与约束见[自定义日程接口规范](docs/custom-schedule-api.md)。
+
+You may optionally provide a public HTTPS JSON URL as a custom schedule source. The app sends no academic credentials, cookies, tokens, schedules, classrooms, or assignments to that URL. URLs containing user information, fragments, loopback hosts, or private literal IP addresses are rejected; redirects, oversized responses, and excessive requests are also rejected. The server may still process ordinary network metadata such as IP address and request time under its own policy. See the [custom schedule feed specification](docs/custom-schedule-api.md) for the format and constraints.
+
+对 `https://where-to-study.cn/api/contest-events`、`https://where-to-study.cn/api/contest-notices` 和 `https://where-to-study.cn/api/shuttle-bus` 的请求仅为发往固定 HTTPS 主机、不接受重定向且限制响应大小的无凭据 `GET`；请求不包含 Cookie、token、课表、教室、作业或其他个人数据。卡片中的所有天气、民俗、班车和截止日期信息均仅供参考，请以实际官方信息为准。
+
+Requests to `https://where-to-study.cn/api/contest-events`, `https://where-to-study.cn/api/contest-notices`, and `https://where-to-study.cn/api/shuttle-bus` are credential-free `GET` requests to the fixed HTTPS host, reject redirects, and enforce response-size limits. They contain no cookies, tokens, schedules, classrooms, assignments, or other personal data. All weather, folklore, shuttle, and deadline information shown in the app is for reference only; rely on actual official information.
+
+## 云课堂作业 / UCloud assignments
+
+“个人账户”可为同一学号另设教学云平台密码，仅用于作业认证，保存于与教务密码相同的受保护凭据存储；未单独设置时使用教务密码。同账号编辑时留空保留已保存的独立密码，选择“改用教务密码”并保存才会清除该覆盖。更换学号不会继承旧账号的教学云密码；有效凭据改变后，旧作业会话及缓存失效。终端客户端的凭据文件仅允许当前用户读写，不等同于系统钥匙串加密。
+
+Personal Account can store a separate teaching cloud password for the same student ID, used only for assignment authentication and kept in the same protected credential store as the academic password. If unset, the academic password is used. Leaving an edit blank for the same account retains its saved override; explicitly choosing and saving “Use academic password” clears that override. A different student ID never inherits the previous account's cloud password. Effective credential changes invalidate old assignment sessions and caches. Terminal clients use owner-only credential files, which are not equivalent to OS keychain encryption.
+
+日期详情请求课程作业时，应用会从安全存储临时读取已保存的教务账号和密码，只将其通过 HTTPS 提交给 `auth.bupt.edu.cn` 完成统一认证，再用一次性票据换取仅存于内存的云课堂令牌，并从 `apiucloud.bupt.edu.cn` 读取课程与作业。应用不读取浏览器 Cookie 或 token，不向 `ucloud.bupt.edu.cn` 或 `apiucloud.bupt.edu.cn` 发送密码，也不把认证票据、Cookie、令牌或作业写入磁盘。跨日期查询结果最多在内存复用 10 分钟，并在切换账号或清除本地数据时失效。
+
+When date details request assignments, the app temporarily reads saved credentials from protected storage and submits them only to `auth.bupt.edu.cn` over HTTPS for unified authentication. It exchanges the one-time ticket for an in-memory UCloud token and reads courses and assignments from `apiucloud.bupt.edu.cn`. The app does not read browser cookies or tokens, does not send the password to `ucloud.bupt.edu.cn` or `apiucloud.bupt.edu.cn`, and does not persist authentication tickets, cookies, tokens, or assignments. Cross-date results may be reused in memory for up to ten minutes and are invalidated when the account changes or local data is cleared.
+
+## 系统日历、通知与小组件 / System calendar, notifications, and widgets
+
+只有在你主动操作并授予相应系统权限后，应用才会写入系统日历或安排本地课程通知，包括每日摘要和独立的课前提醒。提前分钟、提醒次数与去重记录只保存在本机，用于根据本地有效课表安排通知。Android 课前提醒可由用户主动授予“闹钟和提醒”特殊访问权以尽量准时；未授权时使用可能延迟的大致时间提醒，不会因此收集额外数据。应用仅管理带有 Where To Study 标记的日历事件；课程小组件只在支持该能力的平台提供。相关数据不会上传给项目维护者。
+
+The app writes to the system calendar or schedules local course notifications, including daily summaries and independent pre-class reminders, only after your action and the applicable system permission. Lead times, reminder counts and deduplication records remain on your device and are used with the local effective timetable. Android users may optionally grant Alarms & reminders special access for more timely pre-class delivery; without it, approximate reminders may be delayed. This grants no additional data collection. The app manages only calendar events marked by Where To Study, and course widgets are available only on platforms that support them. This data is not uploaded to the maintainer.
+
+## 不收集的数据与第三方元数据 / Data not collected and third-party metadata
+
+本项目只运营用于整理公开班车与活动数据的固定接口，不提供用户账户、云端同步、广告、分析或行为跟踪服务，也不收集 GPS 位置、联系人、广告标识符、诊断或使用行为。北邮服务、unpkg、UAPI、Timeless、GitHub Pages、Where To Study 固定公开接口和用户选择的自定义日程服务器可能依据各自政策处理 IP 地址、请求时间等普通网络元数据。
+
+The project operates only fixed endpoints that organize public shuttle and event data. It provides no user accounts, cloud synchronization, advertising, analytics, or behavioral tracking and does not collect GPS location, contacts, advertising identifiers, diagnostics, or usage behavior. BUPT services, unpkg, UAPI, Timeless, GitHub Pages, the fixed public Where To Study endpoints, and a user-selected custom schedule server may process ordinary network metadata such as IP address and request time under their own policies.
+
+## 保留与删除 / Retention and deletion
+
+凭据和缓存保留在你的设备上，直到被替换、在设置中清除或随卸载移除。清除本地数据不会删除北京邮电大学或其他第三方服务持有的记录。
+
+Credentials and caches remain on your device until replaced, cleared in Settings, or removed with the app. Clearing local data does not delete records held by BUPT or other third-party services.
+
+## 安全与联系 / Security and contact
+
+安全报告请遵循 [SECURITY.md](SECURITY.md)。隐私问题可在 [GitHub Issues](https://github.com/Nemoyuzx/where_to_study/issues) 中提交不含敏感信息的讨论。请勿在公开内容中提供账号、密码、令牌、个人课表或其他敏感数据。重大变更会在本仓库更新生效日期。
+
+Follow [SECURITY.md](SECURITY.md) for security reports. Privacy questions may be opened as a non-sensitive discussion in [GitHub Issues](https://github.com/Nemoyuzx/where_to_study/issues). Never include accounts, passwords, tokens, personal schedules, or other sensitive data in public content. Material changes will be published in this repository with an updated effective date.

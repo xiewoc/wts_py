@@ -3,7 +3,7 @@
 `where-to-study-core` 的异步 Python 实现：北邮空教室、个人课表（含考试）、成绩与考试、
 教学云课程作业、班车与重要事件查询，以及节假日与设备本地收藏。所有 HTTP 请求使用
 [`httpx.AsyncClient`](https://www.python-httpx.org/async/)，与 Rust/Tauri、CLI、TUI
-及 iOS/macOS/Android/HarmonyOS 客户端共用同一份 [v1 数据契约](../contracts/v1/README.md)
+及 iOS/macOS/Android/HarmonyOS 客户端共用同一份 [v1 数据契约](./contracts/v1/README.md)
 与同一套安全语义（固定端点、手动校验重定向、限长读取、凭据不落盘）。
 
 本包只提供服务层：没有界面、命令层、系统通知或日历导出。
@@ -269,7 +269,7 @@ course_deletions.save("course-deletions.json", scope, [rule, one_meeting])
   `omit_when_none`（对应 `skip_serializing_if = "Option::is_none"`）与
   `omit_when_empty`（对应 `skip_serializing_if = "String::is_empty"`），
   `renames` 处理 `type` / `from` 这类关键字字段。
-- 约定与 [`contracts/v1`](../contracts/v1/README.md) 一致：节次索引 0 起、`weekday`
+- 约定与 [`contracts/v1`](./contracts/v1/README.md) 一致：节次索引 0 起、`weekday`
   1–7、日期 `YYYY-MM-DD`、`fetched_at` 为不带小数秒的 RFC 3339、
   `exam_week_numbers` 恒为空数组、未知座位数用 `null` 而非 `0`。
 - 解析函数只做上游 → 契约的规范化，可以直接用 `contracts/v1/fixtures/` 交叉验证，
@@ -328,7 +328,7 @@ course_deletions.save("course-deletions.json", scope, [rule, one_meeting])
 | 移动教务 / 统一认证 / 教学云 | `jwglweixin.bupt.edu.cn`、`auth.bupt.edu.cn`、`ucloud.bupt.edu.cn`、`apiucloud.bupt.edu.cn` |
 
 页面与接口数据仅供参考，请以学校和活动主办方通知为准。详细的隐私说明见
-[隐私政策](../PRIVACY.md)。
+[隐私政策](./PRIVACY.md)。
 
 ## 范围之外
 
@@ -342,9 +342,6 @@ course_deletions.save("course-deletions.json", scope, [rule, one_meeting])
 - 各类本地 store（课表/空教室/设置）、Tauri 命令与前端
 - `holidays` 的“远端 → 本地缓存 → 内置离线数据”编排在 Rust 由 Tauri 命令完成，
   本包把它放进了 `holidays.fetch_holidays`
-
-如果需要终端界面，可以使用仓库内的 [`wts-cli`](../wts-cli/README.md) 与
-[`wts-tui`](../wts-tui/README.md)，或基于本包自行封装。
 
 ## 测试
 
@@ -377,6 +374,6 @@ python -m unittest discover -s tests -v
 
 本项目按 [GNU General Public License v3.0 only](../LICENSE)（SPDX：
 `GPL-3.0-only`）开源发布。第三方材料的条款见
-[`THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md) 与
-[`THIRD_PARTY_LICENSES.html`](../THIRD_PARTY_LICENSES.html)。
+[`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md) 与
+[`THIRD_PARTY_LICENSES.html`](./THIRD_PARTY_LICENSES.html)。
 
