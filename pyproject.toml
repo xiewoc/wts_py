@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "where-to-study-core"
+version = "0.3.1"
+description = "Where To Study headless core services in async Python (httpx)"
+readme = "README.md"
+authors = [{ name = "Nemoyu" }]
+license = { text = "GPL-3.0-only" }
+requires-python = ">=3.11"
+dependencies = ["httpx[brotli]>=0.27"]
+
+[project.optional-dependencies]
+dev = []
+
+[tool.setuptools]
+packages = ["wts_core"]
+
+[tool.unittest]
+start-dir = "tests"
