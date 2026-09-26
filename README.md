@@ -2,7 +2,9 @@
 
 By DeepSeek
 
-Original Auther: *Nemoyuzx*
+Original Auther: [*Nemoyuzx*](https://github.com/Nemoyuzx)
+
+Following the original repo's GPL License
 
 `where-to-study-core` 的异步 Python 实现：北邮空教室、个人课表（含考试）、成绩与考试、
 教学云课程作业、班车与重要事件查询，以及节假日与设备本地收藏。所有 HTTP 请求使用
