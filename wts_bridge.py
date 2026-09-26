@@ -48,6 +48,18 @@ class WTSBridge():
             "6": "Sat",
             "7": "Sun"
         }
+        self.allowed_attr = {
+            "set_acpw",
+            "get_shuttle_bus",
+            "get_important_events",
+            "get_holidays",
+            "get_empty_classroom",
+            "get_terms",
+            "get_grads",
+            "get_exams",
+            "get_assignments",
+            "get_assignment_calendar",
+        }
 
     def _slot2time(self, input: list) -> list:
         opt = []
@@ -57,6 +69,12 @@ class WTSBridge():
 
     def _num2week(self, num) -> str:
         return str(self.week.get(str(num)))
+
+    def _check_ACPSWD(self):
+        if self.ACCOUNT and self.PSWD_JW:
+            pass
+        else:
+            raise SyntaxError("No Account and Password was provided")
 
     @staticmethod
     def _err(e: Exception) -> dict:
@@ -76,6 +94,12 @@ class WTSBridge():
         scope = scoped_cache.new_account_scope()
         revision = assignments.credential_revision()
         return scope, revision
+
+    # ---------------- 帐密相关 ----------------
+    def set_acpw(self, Account: str, Password_JW: str, Password_JXY: str):
+        self.ACCOUNT = Account
+        self.PSWD_JW = Password_JW
+        self.PSWD_JXY = Password_JXY
 
     # ---------------- 公共信息 ----------------
 
@@ -263,3 +287,10 @@ class WTSBridge():
             }
         except Exception as e:
             return self._err(e)
+
+    
+    def str2callable(self, string: str, **kwargs):
+        if string not in self.allowed_attr:
+            raise SyntaxError("Method Not Allowed")
+        fn = getattr(self, string)
+        return fn(**kwargs)
